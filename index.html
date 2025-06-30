@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز صلة التدريبي الدولي</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f7fafc;
+            color: #1f2937;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 25px 25px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .main-header {
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+        .course-card-small {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .course-card-small:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        /* Tab styling */
+        .tabs-section {
+            background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+            transition: opacity 0.3s ease;
+        }
+        .tab-button {
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease-in-out;
+        }
+        .tab-button:hover {
+            background-color: #eff6ff;
+            border-color: #93c5fd;
+        }
+        .tab-button.active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #1d4ed8;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+        }
+        .main-view-button.active {
+            background-color: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
+        }
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 60vh; /* Taller on mobile */
+            overflow: hidden;
+            border-radius: 1rem;
+            background-color: #e2e8f0; 
+        }
+        @media (min-width: 768px) {
+            .slider-container {
+                height: 50vh; /* Original height on larger screens */
+            }
+        }
+        .slider-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.6s ease-in-out;
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        .slider-button:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .slider-dot.active {
+            background-color: white;
+        }
+
+        .monthly-course-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .monthly-course-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        /* Social Icons Interaction */
+        .social-icon {
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .social-icon:hover {
+            transform: translateY(-2px) scale(1.1);
+        }
+        
+        .offer-card {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .offer-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(30, 64, 175, 0.3), 0 10px 10px -5px rgba(30, 64, 175, 0.1);
+        }
+        .offer-card .offer-icon {
+            font-size: 3rem;
+            opacity: 0.1;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            transform: rotate(-15deg);
+        }
+
+        /* Modal Base Style */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 5vh;
+            padding-bottom: 5vh;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 1.5rem; /* Smaller padding on mobile */
+            border: none;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            animation: fadeInDown 0.5s;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        @media (min-width: 640px) {
+            .modal-content {
+                padding: 2.5rem; /* Larger padding on larger screens */
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 0.75rem; /* 12px */
+            left: 0.75rem; /* 12px For RTL */
+            width: 2.5rem; /* 40px */
+            height: 2.5rem; /* 40px */
+            background-color: #e5e7eb;
+            color: #4b5563;
+            border-radius: 9999px; /* full circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem; /* 20px */
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            line-height: 1;
+        }
+        .modal-close-button:hover {
+            background-color: #d1d5db;
+            transform: scale(1.05);
+            color: #1f2937;
+        }
+
+        /* --- Animations --- */
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .animate-fade-out { animation: fadeOut 0.5s ease-in-out forwards; }
+         @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+        }
+
+        /* --- Personality Test Modal Styles --- */
+        .pt-answer-btn { 
+            transition: all 0.2s ease-in-out; 
+            border: 2px solid #3b82f6;
+            background-color: #eff6ff;
+            color: #1e3a8a;
+        }
+        .pt-answer-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            background-color: #3b82f6;
+            color: white;
+        }
+        .pt-progress-bar-inner { 
+            transition: width 0.4s ease-in-out;
+            background-color: #3b82f6;
+        }
+        .pt-result-bar {
+            background-color: #dbeafe;
+        }
+        
+        /* --- Emotional Health Test Styles --- */
+        .eh-radio-label {
+            transition: all 0.2s ease-in-out;
+        }
+        .eh-result-gauge {
+            width: 120px;
+            height: 120px;
+        }
+        .eh-result-gauge-bg {
+            fill: none;
+            stroke: #e5e7eb; /* gray-200 */
+            stroke-width: 10;
+        }
+        .eh-result-gauge-fg {
+            fill: none;
+            stroke: #3b82f6; /* blue-500 */
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg 50 50);
+            transition: stroke-dashoffset 1s ease-out;
+        }
+
+        /* --- Dark Mode Styles --- */
+        body.dark {
+            background-color: #111827;
+            color: #d1d5db;
+            background-image: radial-gradient(#374151 1px, transparent 1px);
+        }
+        body.dark .main-header {
+            background: linear-gradient(90deg, #1f2937, #374151);
+        }
+        body.dark h2, body.dark #view-monthly-courses h2, body.dark .section-title {
+            color: #f9fafb;
+            border-color: #3b82f6;
+        }
+        body.dark #main-view-nav {
+            background-color: #1f2937;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.5), 0 2px 4px -1px rgba(0,0,0,0.3);
+        }
+        body.dark .main-view-button {
+            background-color: #374151;
+            color: #d1d5db;
+        }
+        body.dark .main-view-button.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        body.dark .tabs-section {
+            background: #1f2937;
+        }
+        body.dark .tab-button {
+            background-color: #374151;
+            color: #d1d5db;
+            border-color: #4b5563;
+        }
+        body.dark .tab-button:hover {
+            background-color: #4b5563;
+        }
+        body.dark .tab-button.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+        }
+        body.dark .course-card-small, 
+        body.dark .monthly-course-card {
+            background-color: #1f2937;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.5), 0 2px 4px -1px rgba(0,0,0,0.3);
+        }
+        body.dark .course-card-small h3, 
+        body.dark .monthly-course-card h3 {
+            color: #f9fafb;
+        }
+        body.dark .monthly-course-card p {
+            color: #9ca3af;
+        }
+        body.dark .course-card-small .bg-blue-100 {
+            background-color: #374151;
+        }
+        body.dark .monthly-course-card .details-button {
+            background-color: #3b82f6;
+        }
+        body.dark .modal-content {
+            background-color: #1f2937;
+        }
+        body.dark .modal-close-button {
+            background-color: #4b5563;
+            color: #d1d5db;
+        }
+        body.dark .modal-close-button:hover {
+            background-color: #6b7280;
+            color: white;
+        }
+        body.dark #course-modal-body h3, body.dark #offer-modal-body h3 {
+            color: #f9fafb;
+            border-color: #4b5563;
+        }
+        body.dark #course-modal-body .text-gray-700, body.dark #offer-modal-body .text-gray-700, body.dark .text-gray-700 {
+            color: #d1d5db;
+        }
+        body.dark #course-modal-body .font-bold, body.dark #offer-modal-body .font-bold {
+             color: #f9fafb;
+        }
+        body.dark #course-modal-body .border-r-4 {
+            border-color: #4b5563 !important;
+        }
+        body.dark #course-modal-body .bg-gray-50, body.dark #offer-modal-body .bg-blue-50 {
+             background-color: #374151;
+        }
+        body.dark #tiktok-modal .text-gray-800,
+        body.dark #course-modal-body .text-gray-800,
+        body.dark .monthly-course-card .text-gray-900,
+        body.dark #view-monthly-courses h2,
+        body.dark #offers-grid h2,
+        body.dark #view-all-courses h2,
+        body.dark #course-modal-body .text-gray-900,
+        body.dark #offer-modal-body .text-gray-900,
+        body.dark #personality-test-modal .text-gray-800,
+        body.dark #emotional-health-modal .text-gray-800,
+        body.dark .text-gray-800 {
+            color: #f9fafb;
+        }
+        body.dark .text-gray-600 {
+            color: #9ca3af;
+        }
+        
+        body.dark #search-input {
+            background-color: #1f2937;
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+        body.dark #search-input::placeholder {
+            color: #9ca3af;
+        }
+        body.dark #search-input + div .fa-search {
+            color: #9ca3af;
+        }
+
+        body.dark footer {
+            background-color: #111827;
+            color: #9ca3af;
+        }
+        
+        /* Dark Mode for Personality Test */
+        body.dark #pt-start-screen h1, body.dark #pt-results-screen h1 { color: #5eead4; }
+        body.dark #pt-start-screen p, body.dark #pt-results-screen p, body.dark #pt-question-text { color: #d1d5db; }
+        body.dark #pt-progress-text { color: #5eead4; }
+        body.dark #pt-progress-bar-container { background-color: #4b5563; }
+        body.dark .pt-answer-btn {
+            border-color: #3b82f6;
+            background-color: #374151;
+            color: #d1d5db;
+        }
+        body.dark .pt-answer-btn:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+        body.dark #pt-results-container h3, body.dark #pt-results-container p { color: #d1d5db; }
+        body.dark .pt-result-bar {
+             background-color: #374151;
+        }
+        
+        /* Dark Mode for Emotional Health Test */
+        body.dark .eh-radio-label {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #d1d5db;
+        }
+        body.dark .eh-radio-label:hover {
+            background-color: #4b5563;
+        }
+        body.dark .eh-radio-label.selected {
+             background-color: #3b82f6;
+             border-color: #3b82f6;
+             color: white;
+        }
+        body.dark .eh-results-section {
+            background-color: #262f40; /* Darker bg for sections */
+            border-color: #374151;
+        }
+        body.dark .eh-results-section h3 {
+            color: #93c5fd; /* Light blue for headings */
+        }
+        body.dark .eh-result-gauge-bg {
+            stroke: #374151;
+        }
+         body.dark .eh-result-gauge-fg {
+            stroke: #60a5fa; /* blue-400 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="main-header text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <a href="#" class="flex items-center gap-3 transition-opacity hover:opacity-80">
+                <img src="https://res.cloudinary.com/dnqhuye5h/image/upload/v1750106940/Asset_3_y6hpka.svg" alt="شعار مركز صلة" class="h-10 sm:h-12">
+                <h1 class="text-lg sm:text-xl md:text-2xl font-extrabold tracking-wide">مركز صلة التدريبي الدولي</h1>
+            </a>
+            <div class="flex items-center gap-3 sm:gap-5">
+                <a href="https://www.facebook.com/profile.php?id=61572455555070&sk=photos" target="_blank" class="text-lg sm:text-xl social-icon hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/link.sila?igsh=aW82YmluY2JkYzJq" target="_blank" class="text-lg sm:text-xl social-icon hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/+963991015651" target="_blank" class="text-lg sm:text-xl social-icon hover:text-green-400"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/LINKSELA25" target="_blank" class="text-lg sm:text-xl social-icon hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                <a href="#" id="tiktok-link" class="text-lg sm:text-xl social-icon hover:text-gray-300"><i class="fab fa-tiktok"></i></a>
+                <button id="theme-toggle" class="text-lg sm:text-xl w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <section class="mb-12 shadow-2xl rounded-2xl">
+            <div class="slider-container">
+                <img src="https://res.cloudinary.com/dnqhuye5h/image/upload/v1750088466/Code-img_crurh7.png" class="slider-image" alt="دورات برمجية متقدمة">
+                <img src="https://res.cloudinary.com/dnqhuye5h/image/upload/v1750088464/%D8%AA%D9%86%D9%85%D9%8A%D8%A9_%D8%A8%D8%B4%D8%B1%D9%8A%D8%A9_%D9%88%D8%A5%D8%AF%D8%A7%D8%B1%D9%8A%D8%A9_vprt1m.jpg" class="slider-image" alt="تنمية بشرية وإدارية">
+                <img src="https://res.cloudinary.com/dnqhuye5h/image/upload/v1750088467/%D9%83%D9%88%D8%B1%D8%B3%D8%A7%D8%AA_%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D8%A9_%D9%88%D8%AA%D9%82%D9%86%D9%8A%D8%A9_erekhm.png" class="slider-image" alt="كورسات هندسية وتقنية">
+                <img src="https://res.cloudinary.com/dnqhuye5h/image/upload/v1750088467/%D8%AA%D8%B9%D9%84%D9%85_%D9%84%D8%BA%D8%A7%D8%AA_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85_oeqjsk.jpg" class="slider-image" alt="تعلم لغات العالم">
+                <button id="prev-slide" class="slider-button right-2 sm:right-4"><i class="fas fa-chevron-right"></i></button>
+                <button id="next-slide" class="slider-button left-2 sm:left-4"><i class="fas fa-chevron-left"></i></button>
+                <div id="slider-dots" class="slider-dots"></div>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <div id="main-view-nav" class="flex flex-col sm:flex-row justify-center bg-white p-2 rounded-xl shadow-md gap-2">
+                <button data-view="all-courses" class="main-view-button w-full sm:w-1/4 text-center py-3 px-4 rounded-lg font-bold text-base sm:text-lg border-2 border-transparent active">أقسام الدورات</button>
+                <button data-view="monthly-courses" class="main-view-button w-full sm:w-1/4 text-center py-3 px-4 rounded-lg font-bold text-base sm:text-lg border-2 border-transparent">دورات الشهر</button>
+                <button data-view="offers" class="main-view-button w-full sm:w-1/4 text-center py-3 px-4 rounded-lg font-bold text-base sm:text-lg border-2 border-transparent">العروض</button>
+                <button data-view="entertainment" class="main-view-button w-full sm:w-1/4 text-center py-3 px-4 rounded-lg font-bold text-base sm:text-lg border-2 border-transparent">ترفيه واختبارات</button>
+            </div>
+        </section>
+
+        <div id="views-container">
+            <div id="view-all-courses">
+                
+                <section class="mb-8 px-4 sm:px-6">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="ابحث عن دورة بالاسم أو القسم..." class="w-full py-3 pr-12 pl-4 text-base sm:text-lg border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm">
+                        <div class="absolute top-1/2 -translate-y-1/2 right-4">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="tabs-section mb-8 p-4 sm:p-6 rounded-2xl shadow-lg">
+                    <div id="tabs" class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4"></div>
+                </section>
+
+                <div id="search-no-results" class="text-center py-8 text-gray-500 dark:text-gray-400 text-lg hidden">
+                    <i class="fas fa-search-minus text-4xl mb-4"></i>
+                    <p class="font-bold">لا توجد نتائج مطابقة لبحثك.</p>
+                    <p class="text-sm">حاول استخدام كلمات بحث أخرى.</p>
+                </div>
+                <section id="courses-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></section>
+            </div>
+
+            <div id="view-monthly-courses" class="hidden">
+                 <section class="mb-12">
+                    <h2 class="section-title text-2xl md:text-3xl font-extrabold text-center mb-8 text-gray-800 border-b-4 border-blue-500 pb-3 w-fit mx-auto">دورات الشهر الحالي</h2>
+                    <div id="current-month-courses" class="space-y-6"></div>
+                </section>
+                <section>
+                    <h2 class="section-title text-2xl md:text-3xl font-extrabold text-center mb-8 text-gray-800 border-b-4 border-blue-500 pb-3 w-fit mx-auto">دورات الشهر القادم</h2>
+                    <div id="next-month-courses" class="space-y-6"></div>
+                </section>
+            </div>
+
+            <div id="view-offers" class="hidden">
+                <section class="mb-12">
+                    <h2 class="section-title text-2xl md:text-3xl font-extrabold text-center mb-8 text-gray-800 border-b-4 border-blue-500 pb-3 w-fit mx-auto">عروضنا المميزة</h2>
+                    <div id="offers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        </div>
+                </section>
+            </div>
+
+            <div id="view-entertainment" class="hidden">
+                <section class="mb-12">
+                    <h2 class="section-title text-2xl md:text-3xl font-extrabold text-center mb-4 text-gray-800 border-b-4 border-blue-500 pb-3 w-fit mx-auto">استراحة قصيرة</h2>
+                    <p class="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">استرح قليلاً، اختبر نفسك ببعض الاختبارات النفسية المسلية، أو تحدى صديقك في لعبة سريعة!</p>
+                    <div id="entertainment-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+    
+    <div id="tiktok-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div class="text-center pt-4">
+                <p class="text-xl sm:text-2xl font-bold text-gray-800">قريباً على تيك توك</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div id="course-modal-body"></div>
+        </div>
+    </div>
+
+    <div id="offer-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div id="offer-modal-body"></div>
+        </div>
+    </div>
+    
+    <div id="entertainment-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div class="text-center pt-4">
+                 <i id="entertainment-modal-icon" class="text-5xl sm:text-6xl text-blue-500 mb-4"></i>
+                <p id="entertainment-modal-title" class="text-xl sm:text-2xl font-bold text-gray-800"></p>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">هذه الميزة قيد التطوير حالياً، ترقبوها قريباً!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personality Test Modal -->
+    <div id="personality-test-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div id="pt-app-container" class="w-full mx-auto overflow-hidden">
+                <!-- Start Screen -->
+                <div id="pt-start-screen" class="p-4 md:p-8 text-center animate-fade-in">
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-600 mb-4">اختبار تحليل الشخصية</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 text-base md:text-lg">اكتشف أبعاد شخصيتك الأساسية. الاختبار سريع ومصمم ليعطيك لمحة عن سماتك الفريدة.</p>
+                    <button id="pt-start-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-10 rounded-full text-lg md:text-xl transition duration-300 shadow-lg">
+                        ابدأ الاختبار
+                    </button>
+                </div>
+
+                <!-- Quiz Screen -->
+                <div id="pt-quiz-screen" class="hidden p-4 md:p-8">
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-semibold text-gray-500">التقدم</span>
+                            <span id="pt-progress-text" class="text-sm font-bold text-blue-600"></span>
+                        </div>
+                        <div id="pt-progress-bar-container" class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="pt-progress-bar" class="pt-progress-bar-inner h-4 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div id="pt-question-container" class="text-center">
+                        <h2 id="pt-question-text" class="text-xl md:text-2xl font-semibold mb-8 min-h-[90px] text-gray-800"></h2>
+                        <div id="pt-answers-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+                    </div>
+                </div>
+
+                <!-- Results Screen -->
+                <div id="pt-results-screen" class="hidden p-4 md:p-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-600 mb-6 text-center">نتائج تحليل شخصيتك</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 text-center text-sm md:text-base">هذه النتائج تمثل لمحة عامة عن ميولك الشخصية. تذكر أن الشخصية الإنسانية معقدة ومتعددة الأوجه.</p>
+                    <div id="pt-results-container" class="space-y-4">
+                        <!-- Results are injected here -->
+                    </div>
+                    <div class="text-center mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                         <button id="pt-restart-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full text-base transition duration-300 shadow-lg w-full sm:w-auto">
+                            إعادة الاختبار
+                        </button>
+                        <button id="pt-share-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full text-base transition duration-300 shadow-lg w-full sm:w-auto flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>مشاركة عبر واتساب</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emotional Health Test Modal -->
+    <div id="emotional-health-modal" class="modal">
+        <div class="modal-content">
+             <span class="modal-close-button">&times;</span>
+             <div id="eh-app-container" class="w-full mx-auto overflow-hidden">
+                <!-- Content will be injected here by JavaScript -->
+             </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-gray-800 text-white mt-12 p-6 text-center">
+        <p>&copy; 2024 مركز صلة التدريبي الدولي. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        // --- DATA ---
+        const allCourses = [
+            { category: "القسم البرمجي", title: "Cyber Security", icon: "fas fa-shield-halved", price: "500,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["إجراء اختبارات الاختراق", "فحص الأمان للمواقع والسيرفرات وأجهزة الاندرويد والشبكات اللاسلكية والكاميرات وطرق الاختراق الشائعة لها."], prerequisites: "تعلم الشبكات وفهم آلية عملها بشكل عميق.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "برمجة المتحكمات المنطقية PLC", icon: "fas fa-microchip", price: "600,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["معرفة المفاهيم الأساسية ومكونات أنظمة PLC.", "التعرف على لغات البرمجة المختلفة المستخدمة في PLCs.", "اكتساب المهارات العملية في برمجة وتشخيص PLCs."], prerequisites: "أساسيات الكهرباء الصناعية.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "تكنولوجيا المعلومات IT", icon: "fas fa-network-wired", price: "450,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["صيانة سوفت وير للكمبيوترات.", "برمجة الراوترات وحمايتها من الاختراق وأعطالهم الشهيرة."], prerequisites: "لا يتطلب أي معرفة سابقة.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "Flutter", icon: "fas fa-mobile-alt", price: "550,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["دورة لتعليم أهم أدوات جوجل لتطوير واجهة الموقع والألعاب.", "مقدمة إلى Flutter وأساسياته.", "بناء التطبيقات ونشرها."], prerequisites: "تجربة في البرمجة الكائنية التوجيه (Object Oriented).", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "C# ASP.NET", icon: "fas fa-laptop-code", price: "650,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["إنشاء تطبيقات ويندوز باستخدام لغة Visual C#.", "تطوير واجهات برمجة التطبيقات (API).", "مقدمة إلى التصميم الموجه بالمجال (DDD)."], prerequisites: "خبرة في أداء مهام برمجية أساسية.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "SQL Server", icon: "fas fa-database", price: "400,000 ل.س", hours: "20 ساعة تدريبية (10 جلسات)", objectives: ["تحسين مهارات SQL الأساسية.", "التعامل مع Subqueries و queries المعقدة.", "تحسين أداء الاستعلامات باستخدام Indexes."], prerequisites: "معرفة أساسية بـ SQL وفهم قواعد البيانات.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "Scratch 3", icon: "fas fa-cat", price: "300,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["تعليم الفكر البرمجي للأطفال واليافعين.", "تصميم وبرمجة الألعاب التي تجذبهم."], prerequisites: "الأعمار فوق 10 سنوات.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "تحليل الأنظمة", icon: "fas fa-sitemap", price: "450,000 ل.س", hours: "20 ساعة تدريبية (10 جلسات)", objectives: ["التعرف على أنواع أنظمة الحماية الرقمية.", "إجراء اختبارات الأمان للأنظمة المختلفة عن طريق أداة nmap."], prerequisites: "معرفة في الحاسوب وتكنولوجيا المعلومات.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "Laravel", icon: "fab fa-laravel", price: "600,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["بناء تطبيقات ويب متطورة باستخدام Laravel.", "فهم مفهوم MVC والتوجيه والعروض ووحدات التحكم."], prerequisites: "معرفة مسبقة بـ HTML + CSS، ويستحسن معرفة Bootstrap.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "Front-end", icon: "fas fa-palette", price: "700,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["تصميم وتنفيذ كافة العناصر المرئية لتطبيقات الويب.", "تعلم HTML, CSS, Bootstrap, JavaScript, jQuery."], prerequisites: "لا متطلبات، لكن فهم أساسي لـ HTML و CSS مفيد.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم البرمجي", title: "Back-end", icon: "fas fa-gears", price: "750,000 ل.س", hours: "30 ساعة تدريبية (15 جلسة)", objectives: ["تصميم البنية التحتية للموقع والتعامل مع قواعد البيانات.", "تعلم PHP، OOP، MVC، Laravel."], prerequisites: "يفضل خلفية عن لغة PHP وإدارة قواعد البيانات SQL.", info: "يحق للمتدرب التقدم على شهادة معتمدة من البورد الألماني أو الحصول على شهادة حضور من المركز." },
+            { category: "القسم الهندسي", title: "SolidWorks", icon: "fas fa-cube", price: "550,000 ل.س", hours: "24 ساعة تدريبية (12 جلسة)", objectives: ["القدرة على تصميم نماذج ثلاثية الأبعاد دقيقة.", "إتقان أدوات SolidWorks المختلفة للتصميم والتجميع."], prerequisites: "معرفة أساسية بمفاهيم الرسم الهندسي.", info: "يحصل المتدرب على شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "القسم الهندسي", title: "3D Printer", icon: "fas fa-print", price: "600,000 ل.س", hours: "24 ساعة تدريبية (12 جلسة)", objectives: ["التعرف على مفهوم وتقنيات الطباعة ثلاثية الأبعاد.", "التدريب على تشغيل الطابعة وضبط الإعدادات."], prerequisites: "معرفة أساسية ببرامج التصميم ثلاثي الأبعاد.", info: "يحصل المتدرب على شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "القسم الهندسي", title: "أساليب التنفيذ العملية للهياكل", icon: "fas fa-building-columns", price: "450,000 ل.س", hours: "16 ساعة (12 جلسة)", objectives: ["فهم مكونات الهياكل الإنشائية وأنواعها.", "تعلم تقنيات صب الخرسانة والتحكم في جودتها."], prerequisites: "معرفة أساسية بالهندسة المدنية أو خبرة عملية.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم الهندسي", title: "أساليب التنفيذ العملية للإكساء", icon: "fas fa-paint-roller", price: "480,000 ل.س", hours: "16 ساعة (12 جلسة)", objectives: ["التعرف على أنواع الإكساء (دهان، بلاط، جبس...).", "تعلم خطوات تحضير الأسطح قبل الإكساء."], prerequisites: "معرفة أساسية بالهندسة المدنية أو خبرة عملية.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم الهندسي", title: "Etabs + Safe", icon: "fas fa-calculator", price: "700,000 ل.س", hours: "30 ساعة (13 جلسة)", objectives: ["تعلم إنشاء النماذج الإنشائية للمباني في ETABS.", "تصميم قواعد وأساسات المباني باستخدام برنامج SAFE."], prerequisites: "معرفة أساسية بمبادئ الهندسة المدنية والإنشائية.", info: "يحصل المتدرب على شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "القسم المهني", title: "تصميم الأزياء", icon: "fas fa-scissors", price: "400,000 ل.س", hours: "24 ساعة (15 جلسة)", objectives: ["رسم المانيكان بالنسب الصحيحة.", "رسم خامات الأقمشة ورسم البورتريه."], prerequisites: "لا متطلبات محددة.", info: "يحصل المتدرب على شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "القسم المهني", title: "الريزين - مستوى 1", icon: "fas fa-gem", price: "350,000 ل.س", hours: "10 ساعات (7 جلسات)", objectives: ["التعرف على المواد والمكونات الأساسية لفن الريزين.", "تنفيذ قطع بسيطة مثل الميداليات وقواعد الأكواب."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "الريزين - مستوى 2", icon: "fas fa-gem", price: "450,000 ل.س", hours: "10 ساعات (7 جلسات)", objectives: ["إتقان تقنيات الطبقات والريزين العميق.", "دمج المواد الطبيعية داخل الريزين."], prerequisites: "إنهاء كورس الريزين المستوى الأول أو خبرة مسبقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "فن صناعة الشموع", icon: "fas fa-fire", price: "380,000 ل.س", hours: "40 ساعة (20 جلسة)", objectives: ["التعرف على أنواع الشموع والمواد المستخدمة.", "صناعة الشموع والتزيين والتغليف."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "صناعة المنظفات", icon: "fas fa-soap", price: "320,000 ل.س", hours: "21 ساعة (14 جلسة)", objectives: ["تعلم تركيبات المنظفات المنزلية والشخصية.", "الخلط الآمن للمواد وحفظ المنتج."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "فن المكرمية", icon: "fas fa-spa", price: "300,000 ل.س", hours: "24 ساعة (15 جلسة)", objectives: ["تعلم أساسيات فن المكرمية والكليم.", "تنفيذ الحقائب وقطع فنية أخرى."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور وشهادة دولية إن رغب." },
+            { category: "القسم المهني", title: "سترينغ آرت (String Art)", icon: "fas fa-draw-polygon", price: "280,000 ل.س", hours: "9 ساعات (6 جلسات)", objectives: ["تعلم أساسيات فن الـ String Art.", "تقنيات شد الخيط وتنسيق الألوان."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "فن السيراميك", icon: "fas fa-shapes", price: "420,000 ل.س", hours: "20 ساعة (10 جلسات)", objectives: ["تصنيع عجينة السيراميك.", "تزيين الأكواب وصنع مجسمات صغيرة."], prerequisites: "لا يشترط وجود خبرة سابقة.", info: "يحصل المتدرب على شهادة حضور من المركز." },
+            { category: "القسم المهني", title: "رسم احترافي (رصاص)", icon: "fas fa-pencil-alt", price: "350,000 ل.س", hours: "24 ساعة (16 جلسة)", objectives: ["مدخل لرسم البورتريه.", "أساسيات التظليل والإضاءة."], prerequisites: "لا يوجد.", info: "يحصل المتدرب على شهادة حضور وشهادة دولية إن رغب." },
+            { category: "القسم المهني", title: "الرسم الاحترافي (فحم)", icon: "fas fa-pen-nib", price: "380,000 ل.س", hours: "24 ساعة (16 جلسة)", objectives: ["التعرف على أدوات الرسم بالفحم.", "تقنيات توزيع الظلال والنور."], prerequisites: "خبرة جيدة بالرسم أو إتمام كورس الرسم بالرصاص.", info: "يحصل المتدرب على شهادة حضور وشهادة دولية إن رغب." },
+            { category: "النادي الصيفي", title: "رسم", icon: "fas fa-palette", price: "200,000 ل.س", hours: "شهرين (3 أيام أسبوعياً)", objectives: ["تعلم أساسيات الرسم.", "رسم الشخصيات والطبيعة الصامتة."], prerequisites: "لا يوجد.", info: "نادي صيفي ممتع للأطفال." },
+            { category: "النادي الصيفي", title: "شطرنج", icon: "fas fa-chess", price: "180,000 ل.س", hours: "شهرين (3 أيام أسبوعياً)", objectives: ["تعريف بأسماء القطع وقوانين الشطرنج.", "أشهر الخطط للهجوم والدفاع."], prerequisites: "لا يوجد.", info: "نادي صيفي لتنمية المهارات الذهنية." },
+            { category: "النادي الصيفي", title: "المخترع الصغير", icon: "fas fa-lightbulb", price: "250,000 ل.س", hours: "شهرين (3 أيام أسبوعياً)", objectives: ["ربط الرغبة بالتعلم بشعور السعادة.", "زيادة القدرة العقلية للطفل من خلال التفكير الإبداعي."], prerequisites: "لا يوجد.", info: "نادي صيفي للابتكار والاكتشاف." },
+            { category: "القسم التقني", title: "التصميم الإعلاني Graphic Design", icon: "fas fa-vector-square", price: "600,000 ل.س", hours: "30 ساعة (15 جلسة)", objectives: ["استخدام برامج Photoshop / Illustrator / After effects.", "تصميم الشعارات وإعلانات السوشيال ميديا."], prerequisites: "معرفة باستخدام الكمبيوتر.", info: "شهادة معتمدة من البورد الألماني متاحة." },
+            { category: "القسم التقني", title: "المونتاج باستخدام Adobe Premiere Pro", icon: "fas fa-film", price: "550,000 ل.س", hours: "24 ساعة (12 جلسة)", objectives: ["التحكم الكامل بواجهة برنامج Premiere Pro.", "تحرير وتحسين الصوت باحترافية."], prerequisites: "رغبة في التعلم.", info: "شهادة معتمدة من البورد الألماني متاحة." },
+            { category: "القسم التقني", title: "الرخصة الدولية لقيادة الحاسب ICDL", icon: "fas fa-id-card-alt", price: "300,000 ل.س", hours: "24 ساعة (12 جلسة)", objectives: ["استخدام اللابتوب بالطريقة الصحيحة.", "البرامج المكتبية Word - Excel – Power point - access."], prerequisites: "لا يتطلب معرفة سابقة.", info: "شهادة معتمدة من البورد الألماني متاحة." },
+            { category: "القسم التقني", title: "Motion Graphic", icon: "fas fa-person-running", price: "650,000 ل.س", hours: "40 ساعة (20 جلسة)", objectives: ["تعلم رسم وتحريك الشخصيات الكرتونية.", "إنشاء إعلانات بطريقة كرتونية باستخدام After Effects."], prerequisites: "معرفة في Photoshop و Illustrator.", info: "شهادة معتمدة من البورد الألماني متاحة." },
+            { category: "قسم التنمية البشرية", title: "إدارة الحالة (GBV – CP – PSS)", icon: "fas fa-hand-holding-heart", price: "500,000 ل.س", hours: "30 ساعة (15 جلسة)", objectives: ["فهم مفاهيم العنف القائم على النوع الاجتماعي.", "تصميم وتنفيذ خطط الحماية والوقاية."], prerequisites: "معرفة مبدئية في مفاهيم التنمية البشرية.", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم التنمية البشرية", title: "TOT (Training of Trainers)", icon: "fas fa-chalkboard-user", price: "750,000 ل.س", hours: "50 ساعة (25 جلسة)", objectives: ["فهم أسس وعمليات التدريب وأنماط التعلم.", "تطوير مهارات التخطيط وتصميم البرامج التدريبية."], prerequisites: "لا تتطلب معرفة سابقة.", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم الإدارة والقيادة", title: "العلاقات العامة", icon: "fas fa-bullhorn", price: "400,000 ل.с", hours: "15 ساعة (10 جلسات)", objectives: ["فهم استراتيجيات بناء السمعة والصورة الإيجابية.", "إدارة الأزمات إعلاميًا وتواصليًا."], prerequisites: "خلفية أساسية في مهارات التواصل.", info: "شهادة حضور من المركز." },
+            { category: "قسم الإدارة والقيادة", title: "Social Media Marketing", icon: "fas fa-share-nodes", price: "500,000 ل.س", hours: "24 ساعة (15 جلسة)", objectives: ["لمحة عن منصات التواصل الاجتماعي وخوارزمياتها.", "إعداد خطة المحتوى والكتابة الإبداعية."], prerequisites: "خلفية بسيطة في استخدام الإنترنت.", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم اللغات", title: "لغة انكليزية - مستويات", icon: "fas fa-language", price: "250,000 ل.س / مستوى", hours: "39 ساعة لكل مستوى (26 جلسة)", objectives: ["تعلم اللغة الإنجليزية من المبتدئ إلى المتقدم باستخدام كتاب New English File."], prerequisites: "يعتمد على المستوى (اختبار تحديد مستوى).", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم اللغات", title: "اللغة التركية - مستويات", icon: "fas fa-language", price: "280,000 ل.س / مستوى", hours: "40 ساعة لكل مستوى (20 جلسة)", objectives: ["تعلم اللغة التركية من A1 إلى C2 باستخدام كتاب Yeni İstanbul."], prerequisites: "يعتمد على المستوى (اختبار تحديد مستوى).", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم اللغات", title: "اللغة الفرنسية - مستويات", icon: "fas fa-language", price: "270,000 ل.س / مستوى", hours: "22 ساعة لكل مستوى (15 جلسة)", objectives: ["تعلم اللغة الفرنسية من A1 إلى B2 باستخدام كتاب Alter Ego."], prerequisites: "يعتمد على المستوى (اختبار تحديد مستوى).", info: "شهادة حضور من المركز وشهادة دولية إن رغب." },
+            { category: "قسم اللغات", title: "اللغة الألمانية - مستويات", icon: "fas fa-language", price: "290,000 ل.س / مستوى", hours: "26 ساعة لكل مستوى (17 جلسة)", objectives: ["تعلم اللغة الألمانية A1 و A2 باستخدام كتاب Studio d."], prerequisites: "يعتمد على المستوى (اختبار تحديد مستوى).", info: "شهادة حضور من المركز." }
+        ];
+        
+        const monthlyCoursesData = {
+            current: [
+                { title: "Front-end", category: "القسم البرمجي", description: "دورة شاملة لتصميم وتنفيذ واجهات الويب المرئية والتفاعلية.", image: "https://placehold.co/600x400/10b981/ffffff?text=Front-end" },
+                { title: "Etabs + Safe", category: "القسم الهندسي", description: "إتقان برامج التحليل والتصميم الإنشائي للمباني والأساسات.", image: "https://placehold.co/600x400/f59e0b/ffffff?text=Etabs+%2B+Safe" },
+                { title: "Social Media Marketing", category: "قسم الإدارة والقيادة", description: "تعلم استراتيجيات التسويق الرقمي وإدارة الحملات الإعلانية.", image: "https://placehold.co/600x400/3b82f6/ffffff?text=Social+Media" },
+            ],
+            next: [
+                { title: "Cyber Security", category: "القسم البرمجي", description: "اكتساب مهارات اختبار الاختراق وحماية الأنظمة والشبكات.", image: "https://placehold.co/600x400/ef4444/ffffff?text=Cyber+Security" },
+                { title: "TOT (Training of Trainers)", category: "قسم التنمية البشرية", description: "تأهيل مدربين محترفين لتصميم وتقديم برامج تدريبية فعالة.", image: "https://placehold.co/600x400/8b5cf6/ffffff?text=TOT" },
+                { title: "Motion Graphic", category: "القسم التقني", description: "تعلم فن تحريك الرسومات لإنشاء فيديوهات إعلانية جذابة.", image: "https://placehold.co/600x400/ec4899/ffffff?text=Motion+Graphic" },
+            ]
+        };
+
+        const categoryIcons = {
+            "القسم البرمجي": "fas fa-code",
+            "القسم الهندسي": "fas fa-cogs",
+            "القسم المهني": "fas fa-paint-brush",
+            "النادي الصيفي": "fas fa-sun",
+            "القسم التقني": "fas fa-desktop",
+            "قسم التنمية البشرية": "fas fa-users",
+            "قسم الإدارة والقيادة": "fas fa-briefcase",
+            "قسم اللغات": "fas fa-language"
+        };
+        
+        const offersData = [
+            {
+                title: "عرض الصديق",
+                icon: "fas fa-user-friends",
+                description: "سجل أنت وصديقك في أي دورة واحصلوا على خصم 15% لكل منكما!",
+                details: "العرض صالح عند تسجيل شخصين أو أكثر معاً في نفس الدورة ونفس التوقيت. الخصم يطبق على السعر الأساسي للدورة. لا يمكن دمج هذا العرض مع عروض أخرى."
+            },
+            {
+                title: "عرض الصيف",
+                icon: "fas fa-sun",
+                description: "سجل في دورتين خلال فترة الصيف واحصل على الدورة الثالثة مجاناً!",
+                details: "العرض ساري على جميع الدورات التي تبدأ بين شهري حزيران وآب. الدورة المجانية يجب أن تكون بنفس سعر أو أقل من الدورتين المدفوعتين. يجب دفع رسوم الدورتين بالكامل للاستفادة من العرض."
+            },
+            {
+                title: "عرض الطالب",
+                icon: "fas fa-graduation-cap",
+                description: "خصم 20% لجميع الطلاب الجامعيين على كافة الدورات التقنية والهندسية.",
+                details: "للاستفادة من العرض، يرجى إبراز البطاقة الجامعية سارية المفعول عند التسجيل. الخصم يطبق على دورات القسم التقني والهندسي فقط."
+            }
+        ];
+
+        // Data for Entertainment Section
+        const entertainmentData = [
+             { type: 'quiz', title: "اختبار تحليل الشخصية", icon: "fas fa-brain", description: "اكتشف جوانب شخصيتك الخفية.", action: "personality-test" },
+             { type: 'quiz', title: "مقياس الصحة العاطفية", icon: "fas fa-heart-pulse", description: "قيّم مستوى صحتك العاطفية.", action: "emotional-health-test" },
+             { type: "quiz", title: "ما هو أسلوب تعلمك؟", icon: "fas fa-lightbulb", description: "اعرف الطريقة المثلى التي تتعلم بها.", action: "soon" },
+             { type: "game", title: "لعبة الذاكرة", icon: "fas fa-gamepad", description: "تحدى ذاكرتك وطابق البطاقات.", action: "soon" },
+        ];
+
+
+        // --- LOGIC ---
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- DOM ELEMENTS ---
+            const tabsContainer = document.getElementById('tabs');
+            const coursesGrid = document.getElementById('courses-grid');
+            const mainViewNav = document.getElementById('main-view-nav');
+            const allCoursesView = document.getElementById('view-all-courses');
+            const monthlyCoursesView = document.getElementById('view-monthly-courses');
+            const offersView = document.getElementById('view-offers'); 
+            const entertainmentView = document.getElementById('view-entertainment');
+            const offersGrid = document.getElementById('offers-grid'); 
+            const entertainmentGrid = document.getElementById('entertainment-grid');
+            const currentMonthContainer = document.getElementById('current-month-courses');
+            const nextMonthContainer = document.getElementById('next-month-courses');
+            const courseDetailsModal = document.getElementById('course-details-modal');
+            const offerDetailsModal = document.getElementById('offer-details-modal'); 
+            const entertainmentModal = document.getElementById('entertainment-modal');
+            const personalityTestModal = document.getElementById('personality-test-modal');
+            const emotionalHealthModal = document.getElementById('emotional-health-modal');
+            const courseModalBody = document.getElementById('course-modal-body');
+            const offerModalBody = document.getElementById('offer-modal-body'); 
+            const entertainmentModalIcon = document.getElementById('entertainment-modal-icon');
+            const entertainmentModalTitle = document.getElementById('entertainment-modal-title');
+            const tiktokModal = document.getElementById('tiktok-modal');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            // --- SEARCH ELEMENTS ---
+            const searchInput = document.getElementById('search-input');
+            const searchNoResults = document.getElementById('search-no-results');
+
+            // --- SLIDER ELEMENTS ---
+            const sliderImages = document.querySelectorAll('.slider-image');
+            const prevSlideBtn = document.getElementById('prev-slide');
+            const nextSlideBtn = document.getElementById('next-slide');
+            const dotsContainer = document.getElementById('slider-dots');
+            const sliderDots = [];
+
+            const categories = [...new Set(allCourses.map(course => course.category))];
+            
+            const renderCourses = (coursesToShow) => {
+                coursesGrid.innerHTML = '';
+                searchNoResults.classList.add('hidden'); 
+
+                if (coursesToShow.length === 0) {
+                    searchNoResults.classList.remove('hidden'); 
+                    return;
+                }
+                
+                coursesToShow.forEach((course, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'course-card-small flex flex-col justify-center items-center';
+                    card.dataset.title = course.title;
+                    card.style.animationDelay = `${index * 50}ms`;
+                    const iconClass = course.icon || 'fas fa-chalkboard-teacher';
+                    card.innerHTML = `
+                        <div class="w-12 h-12 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="${iconClass} text-2xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-md font-bold text-gray-800 leading-tight">${course.title}</h3>
+                    `;
+                    coursesGrid.appendChild(card);
+                });
+            };
+
+            const showCourseDetailsModal = (course) => {
+                if (!course) return;
+                const prefilledMessage = `مرحباً، أود الاستفسار أو التسجيل في دورة: *${course.title}*.`;
+                const whatsappURL = `https://wa.me/+963991015651?text=${encodeURIComponent(prefilledMessage)}`;
+                const objectivesList = course.objectives.map(obj => `<li class="flex items-start"><span class="text-blue-500 mt-1 mr-2 ml-2">&#10004;</span><span>${obj}</span></li>`).join('');
+                courseModalBody.innerHTML = `
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">${course.title}</h3>
+                    <div class="space-y-4 md:space-y-6 text-gray-700">
+                        <div class="border-r-4 border-blue-500 pr-4"><h4 class="font-bold text-lg md:text-xl mb-2">أهداف التدريب:</h4><ul class="space-y-2 pr-4 list-none">${objectivesList}</ul></div>
+                        <div class="border-r-4 border-green-500 pr-4"><h4 class="font-bold text-lg md:text-xl mb-2">المتطلبات الأساسية:</h4><p class="pr-4">${course.prerequisites}</p></div>
+                        <div class="border-r-4 border-yellow-500 pr-4"><h4 class="font-bold text-lg md:text-xl mb-2">مدة الدورة:</h4><p class="pr-4">${course.hours}</p></div>
+                        <div class="border-r-4 border-red-500 pr-4"><h4 class="font-bold text-lg md:text-xl mb-2">معلومات إضافية:</h4><p class="pr-4">${course.info}</p></div>
+                        <div class="p-4 md:p-6 mt-6 bg-gray-50 rounded-xl text-center">
+                            <p class="text-md md:text-lg font-semibold text-gray-700 mb-2">تكلفة الاستثمار في مستقبلك هي:</p>
+                            <p class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-5">${course.price}</p>
+                            <div class="mt-6 flex justify-center">
+                                <a href="${whatsappURL}" target="_blank" class="inline-flex items-center justify-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-green-500 text-white font-bold text-base sm:text-lg rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-all duration-300 ease-in-out">
+                                    <i class="fab fa-whatsapp text-xl sm:text-2xl"></i><span>سجل الآن عبر واتساب</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`;
+                courseDetailsModal.style.display = 'flex';
+            };
+
+            const renderMonthlyCourses = (container, courses) => {
+                container.innerHTML = '';
+                courses.forEach(course => {
+                    const card = document.createElement('div');
+                    card.className = 'monthly-course-card md:flex items-center gap-6 p-4';
+                    card.innerHTML = `
+                        <div class="md:w-1/3 h-48 md:h-auto self-stretch"><img src="${course.image}" alt="${course.title}" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found';"></div>
+                        <div class="md:w-2/3 pt-4 md:pt-0">
+                           <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold mb-2 px-3 py-1 rounded-full">${course.category}</span>
+                           <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">${course.title}</h3>
+                           <p class="text-gray-600 mb-4">${course.description}</p>
+                           <button data-title="${course.title}" class="details-button bg-blue-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-blue-700 transition-colors">تفاصيل أكثر</button>
+                        </div>`;
+                    container.appendChild(card);
+                });
+            };
+            
+            const renderOffers = () => {
+                offersGrid.innerHTML = '';
+                offersData.forEach((offer, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'offer-card';
+                    card.dataset.index = index; 
+                    card.innerHTML = `
+                        <i class="${offer.icon} offer-icon"></i>
+                        <h3 class="text-xl sm:text-2xl font-extrabold mb-3 relative z-10">${offer.title}</h3>
+                        <p class="text-base sm:text-lg font-medium relative z-10">${offer.description}</p>
+                        <p class="text-sm mt-4 font-bold relative z-10 opacity-80">انقر لمعرفة التفاصيل</p>
+                    `;
+                    offersGrid.appendChild(card);
+                });
+            };
+
+            const renderEntertainment = () => {
+                entertainmentGrid.innerHTML = '';
+                entertainmentData.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'course-card-small flex flex-col justify-between items-center h-full'; 
+                    card.style.animationDelay = `${index * 50}ms`;
+                    card.dataset.title = item.title;
+                    card.dataset.icon = item.icon;
+                    card.dataset.action = item.action;
+                    card.innerHTML = `
+                        <div>
+                           <div class="w-12 h-12 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="${item.icon} text-2xl text-blue-500"></i>
+                           </div>
+                           <h3 class="text-md font-bold text-gray-800 leading-tight">${item.title}</h3>
+                           <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">${item.description}</p>
+                        </div>
+                    `;
+                    entertainmentGrid.appendChild(card);
+                });
+            };
+            
+            const showOfferDetailsModal = (offer) => {
+                if (!offer) return;
+                const prefilledMessage = `مرحباً، أود الاستفسار عن: *${offer.title}*.`;
+                const whatsappURL = `https://wa.me/+963991015651?text=${encodeURIComponent(prefilledMessage)}`;
+                
+                offerModalBody.innerHTML = `
+                    <div class="text-center">
+                        <i class="${offer.icon} text-5xl sm:text-6xl text-blue-500 mb-4"></i>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4">${offer.title}</h3>
+                        <p class="text-lg sm:text-xl text-gray-700 mb-6">${offer.description}</p>
+                    </div>
+                    <div class="p-4 sm:p-6 bg-blue-50 rounded-lg border-r-4 border-blue-500">
+                        <h4 class="font-bold text-lg sm:text-xl text-blue-800 mb-2">شروط وأحكام العرض:</h4>
+                        <p class="text-gray-700 pr-2">${offer.details}</p>
+                    </div>
+                    <div class="mt-8 flex justify-center">
+                        <a href="${whatsappURL}" target="_blank" class="inline-flex items-center justify-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-green-500 text-white font-bold text-base sm:text-lg rounded-full shadow-lg hover:bg-green-600 transform hover:scale-105 transition-all duration-300 ease-in-out">
+                            <i class="fab fa-whatsapp text-xl sm:text-2xl"></i><span>استفد من العرض الآن</span>
+                        </a>
+                    </div>
+                `;
+                offerDetailsModal.style.display = 'flex';
+            };
+            
+            const showEntertainmentModal = (title, icon) => {
+                entertainmentModalIcon.className = `${icon} text-5xl sm:text-6xl text-blue-500 mb-4`;
+                entertainmentModalTitle.textContent = title;
+                entertainmentModal.style.display = 'flex';
+            };
+
+            // --- Theme Toggle Logic ---
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.body.classList.remove('dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            };
+            
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.body.classList.contains('dark');
+                const newTheme = isDark ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+
+            // --- EVENT LISTENERS ---
+            coursesGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.course-card-small');
+                if (card) {
+                    const courseTitle = card.dataset.title;
+                    const course = allCourses.find(c => c.title === courseTitle);
+                    showCourseDetailsModal(course);
+                }
+            });
+
+            monthlyCoursesView.addEventListener('click', e => {
+                if (e.target.classList.contains('details-button')) {
+                    const courseTitle = e.target.dataset.title;
+                    const course = allCourses.find(c => c.title === courseTitle);
+                    showCourseDetailsModal(course);
+                }
+            });
+            
+            offersGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.offer-card');
+                if (card) {
+                    const offerIndex = card.dataset.index;
+                    const offer = offersData[offerIndex];
+                    showOfferDetailsModal(offer);
+                }
+            });
+            
+            entertainmentGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.course-card-small');
+                 if (card) {
+                    const action = card.dataset.action;
+                    if (action === 'personality-test') {
+                        pt_handleReset(true); 
+                        personalityTestModal.style.display = 'flex';
+                    } else if (action === 'emotional-health-test') {
+                        eh_handleReset(); 
+                        emotionalHealthModal.style.display = 'flex';
+                    } else { 
+                        const title = card.dataset.title;
+                        const icon = card.dataset.icon;
+                        showEntertainmentModal(title, icon);
+                    }
+                }
+            });
+
+            tabsContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('.tab-button');
+                if (button) {
+                    searchInput.value = '';
+                    document.querySelector('.tabs-section').style.opacity = '1';
+                    
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const category = button.dataset.category;
+                    const filteredCourses = allCourses.filter(course => course.category === category);
+                    renderCourses(filteredCourses);
+                }
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                const tabsSection = document.querySelector('.tabs-section');
+
+                if (searchTerm === '') {
+                    tabsSection.style.opacity = '1';
+                    tabsSection.style.pointerEvents = 'auto';
+                    const activeTab = tabsContainer.querySelector('.tab-button.active');
+                    const category = activeTab ? activeTab.dataset.category : categories[0];
+                    const filteredCourses = allCourses.filter(course => course.category === category);
+                    renderCourses(filteredCourses);
+                    return;
+                }
+
+                tabsSection.style.opacity = '0.5';
+                tabsSection.style.pointerEvents = 'none';
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+                const matchedCourses = allCourses.filter(course => 
+                    course.title.toLowerCase().includes(searchTerm) || 
+                    course.category.toLowerCase().includes(searchTerm)
+                );
+                renderCourses(matchedCourses);
+            });
+
+            mainViewNav.addEventListener('click', (e) => {
+                const button = e.target.closest('.main-view-button');
+                if (button) {
+                    const view = button.dataset.view;
+                    document.querySelectorAll('#main-view-nav button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    allCoursesView.classList.toggle('hidden', view !== 'all-courses');
+                    monthlyCoursesView.classList.toggle('hidden', view !== 'monthly-courses');
+                    offersView.classList.toggle('hidden', view !== 'offers');
+                    entertainmentView.classList.toggle('hidden', view !== 'entertainment');
+                }
+            });
+
+            // Generic modal close logic
+            document.querySelectorAll('.modal').forEach(modal => {
+                const closeButton = modal.querySelector('.modal-close-button');
+                if (closeButton) {
+                    closeButton.onclick = () => { modal.style.display = "none"; };
+                }
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) modal.style.display = "none";
+                });
+            });
+
+            document.getElementById('tiktok-link').onclick = (e) => { e.preventDefault(); tiktokModal.style.display = 'flex'; };
+
+            // --- INITIALIZATION ---
+            function initializePage() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                applyTheme(savedTheme);
+
+                categories.forEach((category, index) => {
+                    const button = document.createElement('button');
+                    const iconClass = categoryIcons[category] || 'fas fa-star';
+                    button.className = 'tab-button py-2 px-3 sm:px-4 rounded-full font-semibold flex items-center gap-2 text-sm sm:text-base';
+                    button.innerHTML = `<i class="${iconClass}"></i><span>${category}</span>`;
+                    button.dataset.category = category;
+                    if (index === 0) button.classList.add('active');
+                    tabsContainer.appendChild(button);
+                });
+
+                const initialCourses = allCourses.filter(course => course.category === categories[0]);
+                renderCourses(initialCourses);
+                
+                renderMonthlyCourses(currentMonthContainer, monthlyCoursesData.current);
+                renderMonthlyCourses(nextMonthContainer, monthlyCoursesData.next);
+                renderOffers();
+                renderEntertainment();
+                setupPersonalityTest();
+                setupEmotionalHealthTest();
+            }
+            
+            initializePage();
+            
+            // --- SLIDER LOGIC ---
+            let currentSlide = 0;
+            let slideInterval;
+            const totalSlides = sliderImages.length;
+
+            if (totalSlides > 0) {
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('slider-dot');
+                    dot.dataset.index = i;
+                    dotsContainer.appendChild(dot);
+                    sliderDots.push(dot);
+                }
+                
+                const updateSlider = (newIndex) => {
+                    currentSlide = newIndex;
+                    sliderImages.forEach((img, i) => {
+                        img.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+                    });
+                    sliderDots.forEach(dot => dot.classList.remove('active'));
+                    sliderDots[currentSlide].classList.add('active');
+                };
+
+                const nextSlide = () => updateSlider((currentSlide + 1) % totalSlides);
+                const prevSlide = () => updateSlider((currentSlide - 1 + totalSlides) % totalSlides);
+                
+                const resetInterval = () => {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 3000);
+                };
+
+                prevSlideBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+                nextSlideBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                
+                dotsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('slider-dot')) {
+                        updateSlider(parseInt(e.target.dataset.index));
+                        resetInterval();
+                    }
+                });
+                
+                updateSlider(0);
+                resetInterval();
+            }
+
+            // --- PERSONALITY TEST LOGIC ---
+            function setupPersonalityTest() {
+                const pt_app = document.getElementById('pt-app-container');
+                const pt_startScreen = pt_app.querySelector('#pt-start-screen');
+                const pt_quizScreen = pt_app.querySelector('#pt-quiz-screen');
+                const pt_resultsScreen = pt_app.querySelector('#pt-results-screen');
+                const pt_startBtn = pt_app.querySelector('#pt-start-btn');
+                const pt_restartBtn = pt_app.querySelector('#pt-restart-btn');
+                const pt_shareBtn = pt_app.querySelector('#pt-share-btn');
+                const pt_questionText = pt_app.querySelector('#pt-question-text');
+                const pt_answersContainer = pt_app.querySelector('#pt-answers-container');
+                const pt_progressBar = pt_app.querySelector('#pt-progress-bar');
+                const pt_progressText = pt_app.querySelector('#pt-progress-text');
+                const pt_resultsContainer = pt_app.querySelector('#pt-results-container');
+                
+                const pt_questions = [
+                    { text: "أستمتع بالحديث مع الغرباء في المناسبات الاجتماعية.", factor: 'A', reverse: false },
+                    { text: "أفضل العمل على مشروع بمفردي بدلاً من العمل في فريق.", factor: 'A', reverse: true },
+                    { text: "أجد متعة في حل الألغاز المنطقية والمعقدة.", factor: 'B', reverse: false },
+                    { text: "عادةً ما أتخذ قراراتي بناءً على مشاعري أكثر من المنطق.", factor: 'B', reverse: true },
+                    { text: "أحافظ على هدوئي في المواقف الضاغطة.", factor: 'C', reverse: false },
+                    { text: "أشعر بتقلبات مزاجية متكررة خلال اليوم.", factor: 'C', reverse: true },
+                    { text: "أحب أن أكون مسؤولاً وأقود الآخرين.", factor: 'E', reverse: false },
+                    { text: "أجد صعوبة في فرض رأيي على الآخرين.", factor: 'E', reverse: true },
+                    { text: "غالباً ما أكون محور المرح في التجمعات.", factor: 'F', reverse: false },
+                    { text: "أنا شخص جاد ومتحفظ بطبيعتي.", factor: 'F', reverse: true },
+                    { text: "أؤمن بأهمية اتباع القواعد والإجراءات بدقة.", factor: 'G', reverse: false },
+                    { text: "أميل إلى تجاهل القوانين إذا شعرت أنها غير منطقية.", factor: 'G', reverse: true },
+                    { text: "أشعر بالثقة عند التحدث أمام جمهور كبير.", factor: 'H', reverse: false },
+                    { text: "أشعر بالخجل عندما أكون مركز الاهتمام.", factor: 'H', reverse: true },
+                    { text: "أتأثر بسهولة بالمشاهد الفنية أو الموسيقى العاطفية.", factor: 'I', reverse: false },
+                    { text: "أعتبر نفسي شخصاً عملياً وغير عاطفي.", factor: 'I', reverse: true },
+                    { text: "أكون حذراً في التعامل مع الناس حتى أثق بهم تماماً.", factor: 'L', reverse: false },
+                    { text: "أميل إلى الثقة بالآخرين بسهولة.", factor: 'L', reverse: true },
+                    { text: "غالباً ما أكون شارد الذهن وأفكر في أمور خيالية.", factor: 'M', reverse: false },
+                    { text: "أركز على الواقع الملموس والتفاصيل العملية.", factor: 'M', reverse: true },
+                    { text: "أحتفظ بأفكاري ومشاعري لنفسي.", factor: 'N', reverse: false },
+                    { text: "أنا كتاب مفتوح، وأشارك كل شيء مع أصدقائي.", factor: 'N', reverse: true },
+                    { text: "أقلق كثيراً بشأن الأخطاء التي قد أرتكبها.", factor: 'O', reverse: false },
+                    { text: "نادراً ما أشعر بالقلق أو التوتر.", factor: 'O', reverse: true },
+                    { text: "أستمتع بتجربة أشياء جديدة وتغيير الروتين.", factor: 'Q1', reverse: false },
+                    { text: "أفضل الالتزام بالتقاليد والطرق المألوفة.", factor: 'Q1', reverse: true },
+                    { text: "أفضل اتخاذ قراراتي المهمة بنفسي دون استشارة الآخرين.", factor: 'Q2', reverse: false },
+                    { text: "أحب أن أستشير أصدقائي قبل اتخاذ أي قرار.", factor: 'Q2', reverse: true },
+                    { text: "أحرص على أن يكون كل شيء في حياتي منظماً ومثالياً.", factor: 'Q3', reverse: false },
+                    { text: "أنا شخص مرن ولا أهتم كثيراً بالتفاصيل الدقيقة.", factor: 'Q3', reverse: true },
+                    { text: "أشعر بالملل وعدم الصبر بسهولة.", factor: 'Q4', reverse: false },
+                    { text: "أنا شخص صبور وهادئ جداً.", factor: 'Q4', reverse: true },
+                ];
+                
+                const pt_personalityFactors = {
+                    'A': { name: 'الدفء الاجتماعي', low: 'متحفظ ومنعزل', high: 'اجتماعي وودود' },
+                    'B': { name: 'القدرة على التحليل', low: 'يفكر بشكل ملموس', high: 'يفكر بشكل مجرد' },
+                    'C': { name: 'الاستقرار العاطفي', low: 'يتأثر بالمشاعر', high: 'ناضج وهادئ' },
+                    'E': { name: 'السيطرة', low: 'خاضع ومتواضع', high: 'مسيطر وحازم' },
+                    'F': { name: 'الحيوية', low: 'جدي ورصين', high: 'مرح وحيوي' },
+                    'G': { name: 'الالتزام بالقواعد', low: 'يتجاهل القواعد', high: 'ملتزم وواعٍ' },
+                    'H': { name: 'الجرأة الاجتماعية', low: 'خجول ومتردد', high: 'جريء ومغامر' },
+                    'I': { name: 'الحساسية', low: 'واقعي وعملي', high: 'حساس ورقيق' },
+                    'L': { name: 'اليقظة', low: 'واثق ومتقبل', high: 'حذر ومشكك' },
+                    'M': { name: 'سعة الخيال', low: 'عملي وواقعي', high: 'خيالي وغير عملي' },
+                    'N': { name: 'الخصوصية', low: 'صريح ومباشر', high: 'متحفظ ودبلوماسي' },
+                    'O': { name: 'القلق', low: 'واثق من نفسه', high: 'قلق ومتوجس' },
+                    'Q1': { name: 'الانفتاح على التغيير', low: 'تقليدي ومحافظ', high: 'منفتح ومحب للتجربة' },
+                    'Q2': { name: 'الاعتماد على الذات', low: 'يعتمد على المجموعة', high: 'يعتمد على نفسه' },
+                    'Q3': { name: 'السعي للكمال', low: 'غير دقيق ومرن', high: 'منضبط ومثالي' },
+                    'Q4': { name: 'التوتر', low: 'مسترخٍ وصبور', high: 'متوتر ونفاد الصبر' },
+                };
+
+                let pt_currentQuestionIndex = 0;
+                let pt_scores = {};
+
+                window.pt_handleReset = function(isSilent = false) {
+                    pt_currentQuestionIndex = 0;
+                    pt_scores = {};
+                    Object.keys(pt_personalityFactors).forEach(key => pt_scores[key] = 0);
+                    
+                    pt_resultsScreen.classList.add('hidden');
+                    pt_quizScreen.classList.add('hidden');
+                    pt_startScreen.classList.remove('hidden');
+
+                    if (!isSilent) {
+                       pt_startScreen.classList.remove('animate-fade-out');
+                       pt_startScreen.classList.add('animate-fade-in');
+                    } else {
+                       pt_startScreen.classList.remove('animate-fade-in', 'animate-fade-out');
+                    }
+                }
+                
+                function pt_startQuiz() {
+                    pt_questions.sort(() => Math.random() - 0.5);
+                    pt_startScreen.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        pt_startScreen.classList.add('hidden');
+                        pt_startScreen.classList.remove('animate-fade-out');
+                        pt_quizScreen.classList.remove('hidden');
+                        pt_quizScreen.classList.add('animate-fade-in');
+                        pt_displayQuestion();
+                    }, 500);
+                }
+                
+                function pt_displayQuestion() {
+                    if (pt_currentQuestionIndex < pt_questions.length) {
+                        const question = pt_questions[pt_currentQuestionIndex];
+                        pt_questionText.textContent = question.text;
+                        pt_quizScreen.classList.remove('animate-fade-in');
+                        void pt_quizScreen.offsetWidth; 
+                        pt_quizScreen.classList.add('animate-fade-in');
+
+                        pt_answersContainer.innerHTML = '';
+                        const answers = [ { text: 'نعم', value: 2 }, { text: 'غير متأكد', value: 1 }, { text: 'لا', value: 0 } ];
+                        answers.forEach(answer => {
+                            const button = document.createElement('button');
+                            button.textContent = answer.text;
+                            button.className = 'pt-answer-btn w-full font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400';
+                            button.onclick = () => pt_selectAnswer(answer.value);
+                            pt_answersContainer.appendChild(button);
+                        });
+                        pt_updateProgress();
+                    } else {
+                        pt_showResults();
+                    }
+                }
+
+                function pt_updateProgress() {
+                    const progressPercentage = (pt_currentQuestionIndex / pt_questions.length) * 100;
+                    pt_progressBar.style.width = `${progressPercentage}%`;
+                    pt_progressText.textContent = `السؤال ${pt_currentQuestionIndex + 1} من ${pt_questions.length}`;
+                }
+                
+                function pt_selectAnswer(value) {
+                    const question = pt_questions[pt_currentQuestionIndex];
+                    const score = question.reverse ? 2 - value : value;
+                    pt_scores[question.factor] = (pt_scores[question.factor] || 0) + score;
+                    pt_currentQuestionIndex++;
+                    pt_displayQuestion();
+                }
+
+                function pt_showResults() {
+                    pt_quizScreen.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        pt_quizScreen.classList.add('hidden');
+                        pt_quizScreen.classList.remove('animate-fade-out');
+                        pt_resultsScreen.classList.remove('hidden');
+                        pt_resultsScreen.classList.add('animate-fade-in');
+                        pt_displayResults();
+                    }, 500);
+                }
+
+                function pt_displayResults() {
+                    pt_resultsContainer.innerHTML = '';
+                    for (const factor in pt_personalityFactors) {
+                        const score = pt_scores[factor] || 0;
+                        let level, description, colorClass;
+                        if (score <= 1) { level = "منخفض"; description = pt_personalityFactors[factor].low; colorClass = 'bg-amber-500'; } 
+                        else if (score === 2) { level = "متوسط"; description = "متوازن بين القطبين"; colorClass = 'bg-sky-500'; } 
+                        else { level = "مرتفع"; description = pt_personalityFactors[factor].high; colorClass = 'bg-emerald-500'; }
+                        
+                        const percentage = Math.round((score / 4) * 100);
+
+                        const resultElement = document.createElement('div');
+                        resultElement.innerHTML = `
+                            <div class="mb-1 flex justify-between items-end flex-wrap gap-x-2">
+                                <h3 class="text-base font-bold text-gray-800">${pt_personalityFactors[factor].name} <span class="text-sm font-normal text-gray-500">(${level})</span></h3>
+                                <p class="font-semibold text-gray-600 dark:text-gray-400 text-sm">${description}</p>
+                            </div>
+                            <div class="w-full pt-result-bar rounded-full h-5">
+                                <div class="pt-result-bar-inner ${colorClass} h-5 rounded-full flex items-center justify-center text-white text-xs font-bold" style="width: ${percentage}%">${percentage > 10 ? percentage + '%' : ''}</div>
+                            </div>
+                        `;
+                        pt_resultsContainer.appendChild(resultElement);
+                    }
+                }
+                
+                function pt_shareResultsAsText() {
+                    let message = "*نتائج تحليل الشخصية*\n";
+                    message += "_مقدمة من مركز صلة التدريبي الدولي_\n\n";
+
+                    for (const factor in pt_personalityFactors) {
+                        const score = pt_scores[factor] || 0;
+                        let description;
+                        if (score <= 1) { description = pt_personalityFactors[factor].low; } 
+                        else if (score === 2) { description = "متوازن"; } 
+                        else { description = pt_personalityFactors[factor].high; }
+                        
+                        message += `*${pt_personalityFactors[factor].name}*: ${description}\n`;
+                    }
+                    
+                    message += "\n_هذا التحليل هو لمحة أولية ولا يغني عن الاستشارة المتخصصة. لمعرفة المزيد تواصل معنا._";
+                    
+                    const encodedMessage = encodeURIComponent(message);
+                    window.open(`https://wa.me/+963991015651?text=${encodedMessage}`, '_blank');
+                }
+
+                pt_startBtn.addEventListener('click', pt_startQuiz);
+                pt_restartBtn.addEventListener('click', () => pt_handleReset(false));
+                pt_shareBtn.addEventListener('click', pt_shareResultsAsText);
+            }
+            
+            // --- EMOTIONAL HEALTH TEST LOGIC ---
+            function setupEmotionalHealthTest() {
+                const eh_appContainer = document.getElementById('eh-app-container');
+
+                const eh_questions = [
+                    { id: 'intrapersonal1', text: 'أفهم مشاعري وأسبابها جيدًا.', category: 'الوعي بالذات' },
+                    { id: 'intrapersonal2', text: 'أستطيع التعبير عن آرائي ومعتقداتي بثقة.', category: 'الوعي بالذات' },
+                    { id: 'intrapersonal3', text: 'أشعر بالرضا عن نفسي كشخص.', category: 'الوعي بالذات' },
+                    { id: 'intrapersonal4', text: 'أسعى دائمًا لتطوير نفسي وتحقيق أهدافي.', category: 'الوعي بالذات' },
+                    { id: 'interpersonal1', text: 'أستطيع أن أضع نفسي مكان الآخرين لأفهم مشاعرهم.', category: 'العلاقات الاجتماعية' },
+                    { id: 'interpersonal2', text: 'أهتم بمساعدة من حولي وأشعر بمسؤولية تجاه المجتمع.', category: 'العلاقات الاجتماعية' },
+                    { id: 'interpersonal3', text: 'أجد سهولة في تكوين صداقات جديدة والحفاظ عليها.', category: 'العلاقات الاجتماعية' },
+                    { id: 'interpersonal4', text: 'أستمع جيدًا للآخرين قبل أن أعطي رأيي.', category: 'العلاقات الاجتماعية' },
+                    { id: 'adaptability1', text: 'أستطيع إيجاد حلول فعالة للمشاكل المعقدة.', category: 'القدرة على التكيف' },
+                    { id: 'adaptability2', text: 'أتقبل التغييرات في حياتي بسهولة وأتكيف معها.', category: 'القدرة على التكيف' },
+                    { id: 'adaptability3', text: 'أرى الأشياء بموضوعية وأتعامل مع الواقع.', category: 'القدرة على التكيف' },
+                    { id: 'adaptability4', text: 'أستطيع تعديل خططي وسلوكي عندما تتغير الظروف.', category: 'القدرة على التكيف' },
+                    { id: 'stressmanagement1', text: 'أظل هادئًا ومركزًا حتى تحت الضغط الشديد.', category: 'إدارة الضغوط' },
+                    { id: 'stressmanagement2', text: 'أجد طرقًا صحية للتخلص من التوتر والقلق.', category: 'إدارة الضغوط' },
+                    { id: 'stressmanagement3', text: 'أفكر جيدًا قبل أن أتخذ قرارات تحت تأثير عاطفي.', category: 'إدارة الضغوط' },
+                    { id: 'stressmanagement4', text: 'أنا قادر على إدارة اندفاعاتي العاطفية.', category: 'إدارة الضغوط' },
+                    { id: 'generalmood1', text: 'أشعر بالسعادة والبهجة في معظم الأوقات.', category: 'المزاج العام' },
+                    { id: 'generalmood2', text: 'أرى الجانب الإيجابي في معظم المواقف، حتى الصعبة منها.', category: 'المزاج العام' },
+                    { id: 'generalmood3', text: 'أمتلك طاقة كافية للتعامل مع مسؤولياتي اليومية.', category: 'المزاج العام' },
+                    { id: 'generalmood4', text: 'أنا شخص متفائل بشأن المستقبل.', category: 'المزاج العام' },
+                ];
+                
+                const eh_likertOptions = [
+                    { value: 1, label: 'لا تنطبق علي إطلاقاً' },
+                    { value: 2, label: 'لا تنطبق علي إلى حد ما' },
+                    { value: 3, label: 'أحياناً تنطبق علي' },
+                    { value: 4, label: 'تنطبق علي إلى حد كبير' },
+                    { value: 5, label: 'تنطبق علي تماماً' },
+                ];
+
+                let eh_currentQuestionIndex = 0;
+                let eh_answers = {};
+
+                window.eh_handleReset = function() {
+                    eh_currentQuestionIndex = 0;
+                    eh_answers = {};
+                    eh_renderWelcomeScreen();
+                };
+                
+                function eh_renderWelcomeScreen() {
+                    eh_appContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center p-4 text-center animate-fade-in">
+                           <div class="mb-4 text-blue-500">
+                                <i class="fas fa-heart-pulse fa-4x"></i>
+                           </div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 mb-2">مقياس الصحة العاطفية</h2>
+                             <p class="text-gray-600 mb-6 max-w-lg">
+                                أجب بصدق على الأسئلة التالية لاكتشاف جوانب صحتك العاطفية والحصول على تحليل شخصي ونصائح قيمة.
+                            </p>
+                            <button id="eh-startButton" class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                                ابدأ الاختبار
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('eh-startButton').addEventListener('click', () => {
+                        eh_currentQuestionIndex = 0;
+                        eh_renderQuestion();
+                    });
+                }
+
+                function eh_renderQuestion() {
+                    const currentQuestion = eh_questions[eh_currentQuestionIndex];
+                    if (!currentQuestion) {
+                        eh_handleSubmit();
+                        return;
+                    }
+
+                    const progressPercentage = ((eh_currentQuestionIndex) / eh_questions.length) * 100;
+                    const isLastQuestion = eh_currentQuestionIndex === eh_questions.length - 1;
+                    const answeredValue = eh_answers[currentQuestion.id] || 0;
+
+                    eh_appContainer.innerHTML = `
+                        <div class="space-y-6 animate-fade-in" data-question-index="${eh_currentQuestionIndex}">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-4 overflow-hidden">
+                                <div class="bg-blue-500 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: ${progressPercentage}%;"></div>
+                            </div>
+                            <div class="text-center mb-6">
+                                <p class="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-1">${currentQuestion.category}</p>
+                                <h2 class="text-xl md:text-2xl font-bold text-gray-800 leading-tight min-h-[56px]">
+                                    ${currentQuestion.text}
+                                </h2>
+                            </div>
+                            <div id="eh-optionsContainer" class="flex flex-col space-y-3 items-center text-center">
+                                ${eh_likertOptions.map(option => `
+                                    <label data-value="${option.value}" class="eh-radio-label flex items-center justify-center p-3 rounded-lg cursor-pointer transform hover:scale-105 w-full max-w-xs border ${answeredValue === option.value ? 'selected bg-blue-600 text-white shadow-md border-transparent ring-2 ring-blue-400' : 'bg-gray-100 text-gray-700 hover:bg-blue-100'}">
+                                        <input type="radio" name="${currentQuestion.id}" value="${option.value}" ${answeredValue === option.value ? 'checked' : ''} class="hidden">
+                                        <span class="font-semibold">${option.label}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                            <div class="flex justify-between items-center mt-8">
+                                <button id="eh-previousButton" class="px-6 py-2 rounded-full font-semibold transition duration-300 transform hover:scale-105 ${eh_currentQuestionIndex === 0 ? 'bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-600 text-gray-800 hover:bg-gray-300'}" ${eh_currentQuestionIndex === 0 ? 'disabled' : ''}>
+                                    <i class="fas fa-arrow-right ml-2"></i> السابق
+                                </button>
+                                <div class="text-sm font-bold text-gray-500">${eh_currentQuestionIndex + 1} / ${eh_questions.length}</div>
+                                <button id="eh-nextButton" class="px-6 py-2 rounded-full font-bold text-white transition duration-300 transform hover:scale-105 ${answeredValue === 0 ? 'bg-gray-400 dark:bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 shadow-md'}" ${answeredValue === 0 ? 'disabled' : ''}>
+                                    ${isLastQuestion ? 'إنهاء' : 'التالي'} <i class="fas fa-arrow-left mr-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    document.querySelectorAll(`#eh-optionsContainer label`).forEach(label => {
+                        label.addEventListener('click', (event) => {
+                            const value = event.currentTarget.dataset.value;
+                            eh_answers[currentQuestion.id] = parseInt(value);
+                            eh_updateRadioStyles(currentQuestion.id, value);
+                            eh_updateNextButtonState();
+                            
+                            setTimeout(() => {
+                                eh_handleNext();
+                            }, 200);
+                        });
+                    });
+
+                    document.getElementById('eh-previousButton').addEventListener('click', eh_handlePrevious);
+                    document.getElementById('eh-nextButton').addEventListener('click', eh_handleNext);
+                }
+                
+                function eh_updateRadioStyles(questionId, selectedValue) {
+                    document.querySelectorAll(`#eh-optionsContainer label`).forEach(label => {
+                        label.classList.remove('selected', 'bg-blue-600', 'text-white', 'shadow-md', 'border-transparent', 'ring-2', 'ring-blue-400');
+                        if (label.dataset.value === selectedValue) {
+                           label.classList.add('selected', 'bg-blue-600', 'text-white', 'shadow-md', 'border-transparent', 'ring-2', 'ring-blue-400');
+                        }
+                    });
+                }
+
+                function eh_updateNextButtonState() {
+                    const nextButton = document.getElementById('eh-nextButton');
+                    const currentQuestion = eh_questions[eh_currentQuestionIndex];
+                    const isAnswered = eh_answers[currentQuestion.id] !== undefined;
+                    if (nextButton) {
+                        nextButton.disabled = !isAnswered;
+                        nextButton.classList.toggle('bg-gray-400', !isAnswered);
+                        nextButton.classList.toggle('dark:bg-gray-500', !isAnswered);
+                        nextButton.classList.toggle('cursor-not-allowed', !isAnswered);
+                        nextButton.classList.toggle('bg-blue-600', isAnswered);
+                        nextButton.classList.toggle('hover:bg-blue-700', isAnswered);
+                        nextButton.classList.toggle('shadow-md', isAnswered);
+                    }
+                }
+                
+                function eh_handleNext() {
+                    if(eh_answers[eh_questions[eh_currentQuestionIndex].id] === undefined) return;
+                    if (eh_currentQuestionIndex < eh_questions.length - 1) {
+                        eh_currentQuestionIndex++;
+                        eh_renderQuestion();
+                    } else {
+                        eh_handleSubmit();
+                    }
+                }
+
+                function eh_handlePrevious() {
+                    if (eh_currentQuestionIndex > 0) {
+                        eh_currentQuestionIndex--;
+                        eh_renderQuestion();
+                    }
+                }
+                
+                // REFACTORED FUNCTION
+                function eh_generateLocalAnalysisAndAdvice(categoryScores, overallScore) {
+                    let overallAnalysis = "";
+                    let detailedAnalysisHTML = "";
+                    const advicePool = {
+                        'الوعي بالذات': ["خصص 10 دقائق يوميًا لكتابة يومياتك، مع التركيز على المشاعر التي مررت بها.", "مارس التأمل الواعي (Mindfulness) لبضع دقائق يوميًا.", "اطلب تغذية راجعة (Feedback) من الأصدقاء الموثوق بهم حول ردود أفعالك العاطفية."],
+                        'العلاقات الاجتماعية': ["تدرب على الاستماع النشط: ركز على فهم ما يقوله الآخرون وليس على إعداد ردك.", "تطوع في عمل مجتمعي أو انضم إلى نادٍ لتقابل أشخاصًا جددًا.", "مارس التعاطف بوعي: حاول أن تضع نفسك مكان الآخرين في المواقف المختلفة."],
+                        'القدرة على التكيف': ["عند مواجهة مشكلة، حاول عصف ذهني لعدة حلول ممكنة.", "ضع خطة بديلة (Plan B) لأي مشروع أو هدف مهم.", "مارس تحدي روتينك اليومي بتجربة أشياء جديدة."],
+                        'إدارة الضغوط': ["جرب تقنيات التنفس العميق عند الشعور بالتوتر.", "مارس نشاطًا بدنيًا منتظمًا، حتى المشي لمدة 30 دقيقة يوميًا.", "تعلم أن تقول 'لا' بلطف للمهام أو الالتزامات الإضافية."],
+                        'المزاج العام': ["احتفظ بمفكرة امتنان: اكتب 3-5 أشياء تشعر بالامتنان تجاهها كل يوم.", "احصل على قسط كافٍ من النوم الجيد (7-9 ساعات للبالغين).", "تواصل مع الطبيعة؛ اقضِ وقتًا في الهواء الطلق."]
+                    };
+
+                    const maxOverallScore = eh_questions.length * 5;
+                    const overallPercentage = (overallScore / maxOverallScore) * 100;
+
+                    if (overallPercentage >= 80) {
+                        overallAnalysis = "تهانينا! تُظهر نتائجك امتلاكك لمستوى عالٍ من الذكاء العاطفي. يبدو أنك تتمتع بوعي ذاتي قوي، ومهارات اجتماعية ممتازة، وقدرة فعالة على إدارة الضغوط والتكيف مع التحديات.";
+                    } else if (overallPercentage >= 60) {
+                        overallAnalysis = "نتائجك تشير إلى أنك تمتلك أساسًا جيدًا في الذكاء العاطفي، مع وجود نقاط قوة واضحة في عدة مجالات. قد يكون هناك بعض الجوانب التي يمكنك تطويرها لتعزيز صحتك العاطفية بشكل أكبر.";
+                    } else if (overallPercentage >= 40) {
+                        overallAnalysis = "يبدو أنك في مرحلة استكشاف لذكائك العاطفي. نتائجك تشير إلى أن هناك فرصًا كبيرة للنمو والتطوير في فهم وإدارة عواطفك وعلاقاتك.";
+                    } else {
+                        overallAnalysis = "نتائجك تدل على أن هناك تحديات قد تواجهك في جوانب من صحتك العاطفية. قد يكون من المفيد التركيز على فهم مشاعرك والتعبير عنها بشكل بناء.";
+                    }
+
+                    const categoriesInfo = {
+                        'الوعي بالذات': { low: 'قد تجد صعوبة في التعرف على مشاعرك الحقيقية أو أسبابها.', medium: 'لديك مستوى جيد من الوعي بمشاعرك، ولكن قد تستفيد من التعمق أكثر.', high: 'تتمتع بفهم عميق لمشاعرك وقيمك الشخصية.' },
+                        'العلاقات الاجتماعية': { low: 'قد تواجه تحديات في التواصل مع الآخرين أو فهم وجهات نظرهم.', medium: 'لديك مهارات اجتماعية مقبولة، ويمكنك تحسين قدرتك على التعاطف.', high: 'ممتاز في بناء الروابط والتواصل مع الآخرين.' },
+                        'القدرة على التكيف': { low: 'قد تجد صعوبة في التعامل مع المواقف الجديدة أو التغييرات.', medium: 'تتكيف جيدًا مع التغييرات، ولكن قد تحتاج إلى تعزيز مرونتك.', high: 'مرن للغاية وقادر على التكيف مع الظروف المتغيرة.' },
+                        'إدارة الضغوط': { low: 'قد تشعر بالإرهاق بسهولة تحت الضغط وتجد صعوبة في إدارة ردود أفعالك.', medium: 'تدير الضغوط بشكل معقول، لكن قد تستفيد من تعلم المزيد من التقنيات.', high: 'تتمتع بقدرة عالية على البقاء هادئًا ومركزًا تحت الضغط.' },
+                        'المزاج العام': { low: 'قد تميل إلى السلبية أو التشاؤم في بعض الأحيان.', medium: 'متفائل بشكل عام، ولكن قد تمر بتقلبات مزاجية.', high: 'تتسم بالتفاؤل والإيجابية ولديك نظرة مشرقة للحياة.' }
+                    };
+                    
+                    const maxCategoryScore = 20;
+                    for (const category in categoryScores) {
+                        const score = categoryScores[category];
+                        const percentage = (score / maxCategoryScore) * 100;
+                        let description = "";
+                        let status = "";
+                        
+                        if (percentage >= 80) { description = categoriesInfo[category].high; status = "ممتاز"; }
+                        else if (percentage >= 60) { description = categoriesInfo[category].medium; status = "جيد"; }
+                        else if (percentage >= 40) { description = categoriesInfo[category].medium; status = "متوسط"; }
+                        else { description = categoriesInfo[category].low; status = "يحتاج لتطوير"; }
+
+                        detailedAnalysisHTML += `
+                            <div class="space-y-1">
+                                <p class="font-bold text-gray-800">${category}: <span class="font-semibold">${status}</span></p>
+                                <p class="text-sm text-gray-600">${description}</p>
+                            </div>`;
+                    }
+
+                    let advice = [];
+                    const sortedCategories = Object.keys(categoryScores).sort((a, b) => categoryScores[a] - categoryScores[b]);
+                    const addedAdvice = new Set();
+                    for (const category of sortedCategories) {
+                        if (advice.length >= 3) break;
+                        const availableAdvice = advicePool[category].filter(a => !addedAdvice.has(a));
+                        if (availableAdvice.length > 0) {
+                            const randomAdvice = availableAdvice[Math.floor(Math.random() * availableAdvice.length)];
+                            advice.push(randomAdvice);
+                            addedAdvice.add(randomAdvice);
+                        }
+                    }
+                    
+                    return { overallAnalysis, detailedAnalysisHTML, advice };
+                }
+
+                async function eh_handleSubmit() {
+                    eh_appContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center p-8">
+                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mb-4"></div>
+                            <p class="text-gray-600 dark:text-gray-300 text-lg">جارٍ تحليل نتائجك...</p>
+                        </div>
+                    `;
+                    const categoryScores = {};
+                    eh_questions.forEach(q => {
+                        if (!categoryScores[q.category]) { categoryScores[q.category] = 0; }
+                        categoryScores[q.category] += eh_answers[q.id] || 0;
+                    });
+                    const overallScore = Object.values(categoryScores).reduce((sum, score) => sum + score, 0);
+                    const analysisData = eh_generateLocalAnalysisAndAdvice(categoryScores, overallScore);
+                    
+                    setTimeout(() => eh_renderResults(analysisData, categoryScores, overallScore), 500);
+                }
+
+                // REFACTORED FUNCTION
+                function eh_renderResults(analysisData, categoryScores, overallScore) {
+                     const maxOverallScore = eh_questions.length * 5;
+                     const overallPercentage = (overallScore / maxOverallScore) * 100;
+                     let overallStatus = "";
+                        if (overallPercentage >= 80) { overallStatus = "ممتاز"; }
+                        else if (overallPercentage >= 60) { overallStatus = "جيد جداً"; }
+                        else if (overallPercentage >= 40) { overallStatus = "متوسط"; }
+                        else { overallStatus = "بحاجة للتطوير"; }
+                
+                    eh_appContainer.innerHTML = `
+                        <div class="p-4 md:p-6 text-center animate-fade-in">
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 mb-4">النتائج النهائية</h2>
+                            <p class="text-gray-600 mb-8">هذا تحليل عام لصحتك العاطفية بناءً على إجاباتك.</p>
+                            
+                            <div class="mb-8 flex flex-col items-center">
+                                 <div class="relative eh-result-gauge">
+                                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                                        <circle class="eh-result-gauge-bg" cx="50" cy="50" r="45"></circle>
+                                        <circle id="eh-gauge-fg" class="eh-result-gauge-fg" cx="50" cy="50" r="45" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+                                    </svg>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                       <span class="text-3xl font-bold text-blue-600 dark:text-blue-400">${Math.round(overallPercentage)}%</span>
+                                       <span class="text-xs font-bold text-gray-500">${overallStatus}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6 text-right">
+                                <div class="eh-results-section bg-gray-50 p-4 rounded-lg border dark:border-gray-700">
+                                    <h3 class="text-lg font-bold text-gray-800 mb-3">التحليل العام:</h3>
+                                    <p class="text-sm text-gray-700">${analysisData.overallAnalysis}</p>
+                                </div>
+
+                                <div class="eh-results-section bg-gray-50 p-4 rounded-lg border dark:border-gray-700">
+                                    <h3 class="text-lg font-bold text-gray-800 mb-3">التحليل التفصيلي:</h3>
+                                    <div class="text-sm space-y-4">${analysisData.detailedAnalysisHTML}</div>
+                                </div>
+
+                                <div class="eh-results-section bg-gray-50 p-4 rounded-lg border dark:border-gray-700">
+                                    <h3 class="text-lg font-bold text-gray-800 mb-3">نصائح للتحسين:</h3>
+                                    <ul class="list-none text-sm space-y-2">
+                                        ${analysisData.advice.map(item => `
+                                            <li class="flex items-start">
+                                                <i class="fas fa-check-circle text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                                                <span class="text-gray-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button id="eh-resetButton" class="mt-8 px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                                    إعادة الاختبار
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const gaugeFg = document.getElementById('eh-gauge-fg');
+                    if (gaugeFg) {
+                        setTimeout(() => {
+                           gaugeFg.style.strokeDashoffset = 100 - overallPercentage;
+                        }, 100);
+                    }
+                    
+                    document.getElementById('eh-resetButton').addEventListener('click', eh_handleReset);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
